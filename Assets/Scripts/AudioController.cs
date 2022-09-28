@@ -24,7 +24,6 @@ public class AudioController : MonoBehaviour
 
     IEnumerator playSound()
     {
-        //GetComponent<AudioSource>().clip = clip1;
         yield return new WaitForSeconds(1);
         GetComponent<AudioSource>().clip = clip2;
         GetComponent<AudioSource>().Play();

@@ -7,7 +7,6 @@ public class AudioController : MonoBehaviour
     // Start is called before the first frame update
 
     public AudioClip clip1;
-
     public AudioClip clip2;
     void Start()
     {

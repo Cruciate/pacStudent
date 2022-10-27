@@ -37,7 +37,7 @@ public class MovementManager : MonoBehaviour
     {
         tweener = GetComponent<Tweener>();
         anim = GetComponent<Animator>();
-        StartCoroutine(move());
+        //StartCoroutine(move());
         audio = GetComponent<AudioSource>();
         audio.clip = movementSound;
         GetComponent<AudioSource>().Play();
@@ -53,7 +53,7 @@ public class MovementManager : MonoBehaviour
     }
 
 
-    IEnumerator move()
+    /*IEnumerator move()
     {
         while (true)
         {
@@ -69,6 +69,7 @@ public class MovementManager : MonoBehaviour
             }
         }
     }
+    */
 
 }
     

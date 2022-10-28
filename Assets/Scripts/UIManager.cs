@@ -21,7 +21,14 @@ public class UIManager : MonoBehaviour
 
     public void loadGame()
     {
-        Debug.Log("WORKING");
+        //Debug.Log("WORKING");
         SceneManager.LoadScene(0);
+    }
+
+
+    public void exitGame()
+    {
+        SceneManager.LoadScene(1);
+        Debug.Log("a");
     }
 }

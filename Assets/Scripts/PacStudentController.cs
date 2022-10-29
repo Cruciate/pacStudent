@@ -56,6 +56,8 @@ public class PacStudentController : MonoBehaviour
     [SerializeField]
     AudioClip moveClip;
 
+    ParticleSystem sys;
+
 
 
     void Start()
@@ -64,6 +66,8 @@ public class PacStudentController : MonoBehaviour
         anim = GetComponent<Animator>();
         StartCoroutine(move());
         source.clip = moveClip;
+        sys = GetComponent<ParticleSystem>();
+        
     }
 
     // Update is called once per frame
@@ -130,6 +134,7 @@ public class PacStudentController : MonoBehaviour
                         anim.Play("walkUp");
                         currentAnim = "walkUp";
                         check = true;
+                      
 
                     }
                     else
@@ -148,6 +153,7 @@ public class PacStudentController : MonoBehaviour
                         anim.Play("walkRight");
                         currentAnim = "walkRight";
                         check = true;
+                       
                     }
                     else
                     {
@@ -165,6 +171,7 @@ public class PacStudentController : MonoBehaviour
                         anim.Play("walkDown");
                         currentAnim = "walkDown";
                         check = true;
+                       
                     }
                     else
                     {
@@ -182,10 +189,12 @@ public class PacStudentController : MonoBehaviour
                         anim.Play("walkLeft");
                         currentAnim = "walkLeft";
                         check = true;
+                      
                     }
                     else
                     {
                         nextTile = tempTile;
+                        
                     }
                 }
             }
@@ -218,6 +227,9 @@ public class PacStudentController : MonoBehaviour
                 {
                     source.Play();
                 }
+               
+
+
                 while (t < moveTime)
                 {
                     
@@ -234,6 +246,7 @@ public class PacStudentController : MonoBehaviour
             {
                 GetComponent<AudioSource>().Stop();
                 moved = false;
+                sys.Stop();
                 yield return null;
             }
 
@@ -241,6 +254,10 @@ public class PacStudentController : MonoBehaviour
 
             if (moved)
             {
+                if (!sys.isPlaying)
+                {
+                    sys.Play();
+                }
                 
                 transform.position = target;
 

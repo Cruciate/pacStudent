@@ -49,11 +49,21 @@ public class PacStudentController : MonoBehaviour
     int[] currentSpot = new int[2] { 1, 1 };
     int nextTile = 5;
     bool check;
+    private KeyCode currentInput;
+    Animator anim;
+    String currentAnim = "walkRight";
+    AudioSource source;
+    [SerializeField]
+    AudioClip moveClip;
+
 
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
         StartCoroutine(move());
+        source.clip = moveClip;
     }
 
     // Update is called once per frame
@@ -105,17 +115,7 @@ public class PacStudentController : MonoBehaviour
             currentSpot[1] = (int)(transform.position.x + 8.5f);
             currentSpot[0] = Math.Abs((int)(transform.position.y - 4.5f));
             Debug.Log(currentSpot[0]);
-            /*if (currentSpot[0] >= 13)
-            {
-                currentSpot[0] = 0;
-            }
 
-            else if (currentSpot[1] >= 13)
-            {
-
-                currentSpot[1] = 0;
-            }
-            */
             int tempTile = nextTile;
             if (!check)
             {
@@ -124,8 +124,13 @@ public class PacStudentController : MonoBehaviour
                     nextTile = levelMap[currentSpot[0] - 1, currentSpot[1]];
                     if (nextTile == 5 || nextTile == 6 || nextTile == 0)
                     {
+                        currentInput = KeyCode.W;
                         direction = Vector3.up;
+                        //anim.SetBool("walkUp", true);
+                        anim.Play("walkUp");
+                        currentAnim = "walkUp";
                         check = true;
+
                     }
                     else
                     {
@@ -137,7 +142,11 @@ public class PacStudentController : MonoBehaviour
                     nextTile = levelMap[currentSpot[0], currentSpot[1] + 1];
                     if (nextTile == 5 || nextTile == 6 || nextTile == 0)
                     {
+                        currentInput = KeyCode.D;
                         direction = Vector3.right;
+                        //anim.SetBool("walkRight", true);
+                        anim.Play("walkRight");
+                        currentAnim = "walkRight";
                         check = true;
                     }
                     else
@@ -150,7 +159,11 @@ public class PacStudentController : MonoBehaviour
                     nextTile = levelMap[currentSpot[0] + 1, currentSpot[1]];
                     if (nextTile == 5 || nextTile == 6 || nextTile == 0)
                     {
+                        currentInput = KeyCode.S;
                         direction = Vector3.down;
+                        //anim.SetBool("walkDown", true);
+                        anim.Play("walkDown");
+                        currentAnim = "walkDown";
                         check = true;
                     }
                     else
@@ -163,7 +176,11 @@ public class PacStudentController : MonoBehaviour
                     nextTile = levelMap[currentSpot[0], currentSpot[1] - 1];
                     if (nextTile == 5 || nextTile == 6 || nextTile == 0)
                     {
+                        currentInput = KeyCode.A;
                         direction = Vector3.left;
+                        //anim.SetBool("walkLeft", true);
+                        anim.Play("walkLeft");
+                        currentAnim = "walkLeft";
                         check = true;
                     }
                     else
@@ -197,8 +214,14 @@ public class PacStudentController : MonoBehaviour
             target = transform.position + direction;
             if (nextTile == 5 || nextTile == 6 || nextTile == 0)
             {
+                if (!source.isPlaying)
+                {
+                    source.Play();
+                }
                 while (t < moveTime)
                 {
+                    
+                    anim.Play(currentAnim);
                     transform.position = Vector3.Lerp(current, target, (t / moveTime));
                     t += Time.deltaTime;
                     
@@ -209,6 +232,7 @@ public class PacStudentController : MonoBehaviour
             }
             else
             {
+                GetComponent<AudioSource>().Stop();
                 moved = false;
                 yield return null;
             }
@@ -219,10 +243,7 @@ public class PacStudentController : MonoBehaviour
             {
                 
                 transform.position = target;
-                
 
-                
-               
             }
             
 

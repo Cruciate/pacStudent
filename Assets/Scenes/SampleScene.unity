@@ -7827,6 +7827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveClip: {fileID: 8300000, guid: b493f8981a7eb5847adb955dd924cd40, type: 3}
+  eatClip: {fileID: 8300000, guid: 836c80f9cc67f1b48ac4525cb17dc6e8, type: 3}
 --- !u!199 &1451071557
 ParticleSystemRenderer:
   serializedVersion: 6

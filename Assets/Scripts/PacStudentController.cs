@@ -56,6 +56,9 @@ public class PacStudentController : MonoBehaviour
     [SerializeField]
     AudioClip moveClip;
 
+    [SerializeField]
+    AudioClip eatClip;
+
     ParticleSystem sys;
 
 
@@ -118,7 +121,7 @@ public class PacStudentController : MonoBehaviour
             t = 0;
             currentSpot[1] = (int)(transform.position.x + 8.5f);
             currentSpot[0] = Math.Abs((int)(transform.position.y - 4.5f));
-            Debug.Log(currentSpot[0]);
+            //Debug.Log(currentSpot[0]);
 
             int tempTile = nextTile;
             if (!check)
@@ -223,10 +226,17 @@ public class PacStudentController : MonoBehaviour
             target = transform.position + direction;
             if (nextTile == 5 || nextTile == 6 || nextTile == 0)
             {
+                if (nextTile == 5)
+                {
+                    GetComponent<AudioSource>().Stop();
+                    source.PlayOneShot(eatClip);
+                }
+
                 if (!source.isPlaying)
                 {
+                    source.clip = moveClip;
                     source.Play();
-                }
+               }
                
 
 
@@ -245,6 +255,7 @@ public class PacStudentController : MonoBehaviour
             else
             {
                 GetComponent<AudioSource>().Stop();
+                anim.StopPlayback();
                 moved = false;
                 sys.Stop();
                 yield return null;
